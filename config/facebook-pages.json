@@ -1,0 +1,20 @@
+{
+  "timezone": "Europe/Paris",
+  "local_time": "06:00",
+  "rss": "https://rss.aelf.org/evangile",
+  "pages": [
+    {
+      "name": "Quinze Heures de la Miséricorde Divine",
+      "url": "https://www.facebook.com/quinzeheuresdelamisericordedivine",
+      "id_variable": "FACEBOOK_PAGE_ID_MISERICORDE",
+      "token_secret": "FACEBOOK_PAGE_TOKEN_MISERICORDE"
+    },
+    {
+      "name": "Les Promesses du Rosaire",
+      "url": "https://www.facebook.com/lespromessesdurosaire/",
+      "id_variable": "FACEBOOK_PAGE_ID_ROSAIRE",
+      "token_secret": "FACEBOOK_PAGE_TOKEN_ROSAIRE"
+    }
+  ],
+  "publishing": "disabled_until_meta_authorization"
+}
