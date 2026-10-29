@@ -1,0 +1,10 @@
+{
+  "feeds": [
+    {
+      "name": "NELVIS - exemple",
+      "url": "https://www.nelvis-france.com/feed.xml",
+      "page_id": "",
+      "enabled": false
+    }
+  ]
+}
