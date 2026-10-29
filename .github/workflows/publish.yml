@@ -1,0 +1,31 @@
+name: RSS to Facebook
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 7,12,17 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: rss-facebook
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm install --no-audit --no-fund
+      - uses: actions/cache@v4
+        with:
+          path: .state
+          key: rss-state-${{ github.run_id }}
+          restore-keys: |
+            rss-state-
+      - run: npm start
+        env:
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+          PUBLISH_ENABLED: ${{ vars.PUBLISH_ENABLED }}
