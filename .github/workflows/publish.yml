@@ -1,12 +1,13 @@
-name: RSS to Facebook
+name: Évangile du matin - Facebook
 on:
   workflow_dispatch:
   schedule:
-    - cron: '15 7,12,17 * * *'
+    # 06:00 Paris: UTC+1 hiver / UTC+2 été
+    - cron: '0 4,5 * * *'
 permissions:
-  contents: write
+  contents: read
 concurrency:
-  group: rss-facebook
+  group: gospel-facebook
   cancel-in-progress: false
 jobs:
   publish:
@@ -16,16 +17,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: package-lock.json
       - run: npm install --no-audit --no-fund
-      - uses: actions/cache@v4
-        with:
-          path: .state
-          key: rss-state-${{ github.run_id }}
-          restore-keys: |
-            rss-state-
-      - run: npm start
+      - run: node src/morning.js
         env:
-          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+          FACEBOOK_PAGE_TOKEN_MISERICORDE: ${{ secrets.FACEBOOK_PAGE_TOKEN_MISERICORDE }}
+          FACEBOOK_PAGE_TOKEN_ROSAIRE: ${{ secrets.FACEBOOK_PAGE_TOKEN_ROSAIRE }}
+          FACEBOOK_PAGE_ID_MISERICORDE: ${{ vars.FACEBOOK_PAGE_ID_MISERICORDE }}
+          FACEBOOK_PAGE_ID_ROSAIRE: ${{ vars.FACEBOOK_PAGE_ID_ROSAIRE }}
+          AELF_RSS_URL: ${{ vars.AELF_RSS_URL }}
           PUBLISH_ENABLED: ${{ vars.PUBLISH_ENABLED }}
