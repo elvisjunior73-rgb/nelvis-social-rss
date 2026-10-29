@@ -3,8 +3,8 @@ const now=new Date();
 const fmt=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
 const p=Object.fromEntries(fmt.formatToParts(now).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));
 const day=`${p.year}-${p.month}-${p.day}`;
-if(p.hour!=='06'||p.minute!=='00'){console.log('Not 06:00 Europe/Paris',day,p.hour,p.minute);process.exit(0);}
-const url=process.env.AELF_RSS_URL;
+if(p.hour!=='06'||Number(p.minute)>25){console.log('Not 06:00 Europe/Paris',day,p.hour,p.minute);process.exit(0);}
+const url=process.env.AELF_RSS_URL || 'https://rss.aelf.org/evangile';
 if(!url)throw Error('Configure AELF_RSS_URL');
 const response=await fetch(url,{signal:AbortSignal.timeout(15000)});
 if(!response.ok)throw Error('RSS HTTP '+response.status);
