@@ -1,0 +1,12 @@
+{
+  "name": "nelvis-social-rss",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/publish.js"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.5.3"
+  }
+}
